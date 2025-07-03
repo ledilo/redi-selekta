@@ -1,58 +1,32 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Redireccionando a WhatsApp...</title>
-  <meta name="robots" content="noindex, nofollow">
+  <meta charset="UTF-8" />
+  <title>Redirigiendo...</title>
+  <meta name="robots" content="noindex, nofollow" />
   <script>
-    function isBot() {
-      const ua = navigator.userAgent.toLowerCase();
-      const botPatterns = [
-        "bot", "crawl", "slurp", "spider", "facebook", "meta", "whatsapp",
-        "headless", "python", "curl", "wget", "axios"
-      ];
-      return botPatterns.some(p => ua.includes(p));
+    // Detectar bots de Meta
+    const bots = [
+      /facebookexternalhit/i,
+      /Facebot/i,
+      /WhatsApp/i,
+      /Meta/i,
+      /Instagram/i
+    ];
+
+    const userAgent = navigator.userAgent;
+    const isBot = bots.some(bot => bot.test(userAgent));
+
+    if (!isBot) {
+      // Tu número en Base64 (no visible como texto plano)
+      const encoded = "NTQ5MjYxMjc5ODY5OA=="; // en Base64
+      const decoded = atob(encoded);
+      const mensaje = encodeURIComponent("Hola SELEKTA, quiero info sobre los vapes 🔥");
+      window.location.href = `https://wa.me/${decoded}?text=${mensaje}`;
+    } else {
+      document.write("<h3>Gracias por visitar</h3>");
     }
-
-    function detectHeadless() {
-      return navigator.webdriver || false;
-    }
-
-    function safeRedirect() {
-      const parts = [
-        "aHR0cHM6Ly93YQ==",       // "https://wa"
-        "Lm1lLw==",               // ".me/"
-        "NTQ5MjYxNTAwMjIwOQ==",   // nuevo número: 5492615002209 (Base64)
-        "P3RleHQ9SG9sYSwlMjB2ZW5nbyUyMGRlJTIwbGElMjBwdWJsaWNpZGFk" // "?text=Hola, vengo de la publicidad"
-      ];
-
-      function decode(base64) {
-        return decodeURIComponent(atob(base64).split('').map(c =>
-          '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
-        ).join(''));
-      }
-
-      const url = parts.map(decode).join('');
-      setTimeout(() => eval(`window.location.href = '${url}'`), 1500);
-    }
-
-    window.onload = function () {
-      if (isBot() || detectHeadless()) {
-        document.body.innerHTML = '<p style="text-align:center; margin-top:100px; font-family:sans-serif;">Cargando...</p>';
-      } else {
-        safeRedirect();
-      }
-    };
   </script>
 </head>
-<body>
-  <noscript>
-    <p style="text-align: center; margin-top: 100px; font-family: sans-serif;">
-      Esta página requiere JavaScript para continuar.
-    </p>
-  </noscript>
-  <p style="text-align: center; margin-top: 100px; font-family: sans-serif;">
-    Redireccionando a WhatsApp...
-  </p>
-</body>
+<body style="background-color: #0e0d09;"></body>
 </html>
