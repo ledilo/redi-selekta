@@ -4,8 +4,27 @@
   <meta charset="UTF-8" />
   <title>Redirigiendo...</title>
   <meta name="robots" content="noindex, nofollow" />
+  <style>
+    body {
+      background-color: #0e0d09;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 100px;
+    }
+
+    .btn {
+      margin-top: 20px;
+      padding: 15px 25px;
+      background-color: #25D366;
+      color: white;
+      font-size: 18px;
+      text-decoration: none;
+      border-radius: 8px;
+      display: inline-block;
+    }
+  </style>
   <script>
-    // Detectar bots de Meta
     const bots = [
       /facebookexternalhit/i,
       /Facebot/i,
@@ -17,16 +36,23 @@
     const userAgent = navigator.userAgent;
     const isBot = bots.some(bot => bot.test(userAgent));
 
+    const encoded = "NTQ5MjYxMjc5ODY5OA==";
+    const decoded = atob(encoded);
+    const mensaje = encodeURIComponent("Hola SELEKTA, quiero info sobre los vapes 🔥");
+    const url = `https://wa.me/${decoded}?text=${mensaje}`;
+
     if (!isBot) {
-      // Tu número en Base64 (no visible como texto plano)
-      const encoded = "NTQ5MjYxMjc5ODY5OA=="; // en Base64
-      const decoded = atob(encoded);
-      const mensaje = encodeURIComponent("Hola SELEKTA, quiero info sobre los vapes 🔥");
-      window.location.href = `https://wa.me/${decoded}?text=${mensaje}`;
+      window.location.href = url;
     } else {
-      document.write("<h3>Gracias por visitar</h3>");
+      document.addEventListener("DOMContentLoaded", () => {
+        document.body.innerHTML = `
+          <h3>Gracias por visitar</h3>
+          <p>Si no fuiste redirigido automáticamente, hacé clic en el botón:</p>
+          <a class="btn" href="${url}">Ir a WhatsApp</a>
+        `;
+      });
     }
   </script>
 </head>
-<body style="background-color: #0e0d09;"></body>
+<body></body>
 </html>
