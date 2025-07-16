@@ -25,34 +25,35 @@
     }
   </style>
   <script>
-    const bots = [
-      /facebookexternalhit/i,
-      /Facebot/i,
-      /WhatsApp/i,
-      /Meta/i,
-      /Instagram/i
-    ];
+  const bots = [
+    /facebookexternalhit/i,
+    /Facebot/i,
+    /WhatsApp/i,
+    /Meta/i,
+    /Instagram/i
+  ];
 
-    const userAgent = navigator.userAgent;
-    const isBot = bots.some(bot => bot.test(userAgent));
+  const userAgent = navigator.userAgent;
+  const isBot = bots.some(bot => bot.test(userAgent));
 
-    const encoded = "NTQ5MjYxMjc5ODY5OA==";
-    const decoded = atob(encoded);
-    const mensaje = encodeURIComponent("Hola SELEKTA, quiero info sobre los vapes 🔥");
-    const url = `https://wa.me/${decoded}?text=${mensaje}`;
+  // Número en base64: +5492617263841 → NTQ5MjYxNzI2Mzg0MQ==
+  const encoded = "NTQ5MjYxNzI2Mzg0MQ==";
+  const decoded = atob(encoded);
+  const mensaje = encodeURIComponent("Hola SELEKTA, quiero info sobre los vapes 🔥");
+  const url = `https://wa.me/${decoded}?text=${mensaje}`;
 
-    if (!isBot) {
-      window.location.href = url;
-    } else {
-      document.addEventListener("DOMContentLoaded", () => {
-        document.body.innerHTML = `
-          <h3>Gracias por visitar</h3>
-          <p>Si no fuiste redirigido automáticamente, hacé clic en el botón:</p>
-          <a class="btn" href="${url}">Ir a WhatsApp</a>
-        `;
-      });
-    }
-  </script>
+  if (!isBot) {
+    window.location.href = url;
+  } else {
+    document.addEventListener("DOMContentLoaded", () => {
+      document.body.innerHTML = `
+        <h3>Gracias por visitar</h3>
+        <p>Si no fuiste redirigido automáticamente, hacé clic en el botón:</p>
+        <a class="btn" href="${url}">Ir a WhatsApp</a>
+      `;
+    });
+  }
+</script>
 </head>
 <body></body>
 </html>
